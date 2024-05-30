@@ -1,20 +1,41 @@
-from fastapi import  FastAPI
+from fastapi import FastAPI
 from auth import auth_router
-from models import model_router
+from category import category_router
+from orders import order_router
 
 app = FastAPI()
 app.include_router(auth_router)
-app.include_router(model_router)
+app.include_router(category_router)
+app.include_router(order_router)
 
-"""app.include_router(models.router)"""
 @app.get("/")
-async def intro():
+async def landing():
     return {
-        "meseege": "Welcome to my fast api"
+        "message": "This is landing page"
     }
 
-@app.get("/config")
-async def user():
+@app.get("/user")
+async def intro():
     return {
-        "messege": "Welcome to gonfig user api"
+        "message": "user page"
+    }
+
+@app.get("/user/{id}")
+async def intro(id: int):
+    return {
+        "message": f"user - {id}"
+    }
+
+@app.post("/user")
+async def intro():
+    return {
+        "message": "This is post request"
+    }
+
+
+
+@app.get("/test2")
+async def test2():
+    return {
+        "message": "This is test page"
     }
