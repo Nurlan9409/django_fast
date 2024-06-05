@@ -76,3 +76,11 @@ async def get_product(product_id):
         }
         return jsonable_encoder(data)
     return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product not found")
+
+@product_router.delete("/{product_id}")
+async def delete_product(product_id):
+    check_product_id = session.query(Product).filter(Product.id == product_id).first()
+    if check_product_id :
+        session.delete(check_product_id)
+        session.commit()
+        return HTTPException(status_code=status.HTTP_204_NO_CONTENT)

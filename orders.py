@@ -107,3 +107,11 @@ async def get_order_id(id:int):
         },
         return jsonable_encoder(data)
     return HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="user_id allready exis")
+
+@order_router.delete("/delete")
+async def delete_order(id:int):
+    check_order = session.query(Order).filter(Order.id == id).first()
+    if check_order:
+        session.delete(check_order)
+        session.commit()
+        return HTTPException(status_code=status.HTTP_204_NO_CONTENT)

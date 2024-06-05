@@ -41,3 +41,11 @@ async def create(category: CategoryModel):
     return category
 
 
+@category_router.delete("/delete")
+async def delete(category: CategoryModel):
+    check_category = session.query(Category).filter(Category.id == category.id).first()
+    if check_category:
+        session.delete(category)
+        session.commit()
+        return HTTPException(status_code=status.HTTP_204_NO_CONTENT)
+

@@ -12,7 +12,7 @@ user_router = APIRouter(prefix="/user")
 
 
 @user_router.get("/")
-async def product_list(status_code=status.HTTP_200_OK):
+async def get(status_code=status.HTTP_200_OK):
     user= session.query(User).all()
     context = [
         {
@@ -45,5 +45,16 @@ async def create(user: UserModel):
     session.commit()
 
     return user
+
+
+
+@user_router.delete("/delete")
+async def delete(user: UserModel):
+    check_user = session.query(User).filter(User.id == user.id).first()
+    if check_user:
+        session.delete(check_user)
+        session.commit()
+        return HTTPException(status_code=status.HTTP_204_NO_CONTENT)
+
 
 
