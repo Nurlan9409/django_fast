@@ -47,3 +47,4 @@ class Order(Base):
     product_id = Column(Integer, ForeignKey('product.id'))
     users = relationship('User', back_populates='orders')
     product = relationship('Product', back_populates='orders')
+    count = Column(Integer)
