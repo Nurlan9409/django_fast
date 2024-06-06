@@ -46,3 +46,8 @@ class UserModel(BaseModel):
     password: str
     is_staff: Optional[bool]
     is_active: Optional[bool]
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
